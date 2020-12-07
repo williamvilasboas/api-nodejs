@@ -1,0 +1,4 @@
+/node_modules
+/mysql
+.env
+yarn.lock

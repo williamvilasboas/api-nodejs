@@ -1,0 +1,44 @@
+{
+  "name": "ibills-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "docker-compose up -d && NODE_ENV=development npm run run-db",
+    "start": "browser-refresh server.js",
+    "test": "NODE_ENV=test mocha test --timeout 10000 --exit",
+    "pretest": "docker-compose up -d && NODE_ENV=test npm run run-db",
+    "posttest": "NODE_ENV=test npm run run-db",
+    "run-db": "npm run migrate-clear && npm run migrate && npm run seed",
+    "migrate-clear": "npx sequelize-cli db:migrate:undo:all",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "camelcase": "^6.2.0",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.3.5",
+    "ucfirst": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "chai-subset": "^1.6.0",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.1",
+    "sequelize-cli": "^6.2.0",
+    "http-proxy": "^1.16.2",
+    "mocha": "^7.1.0"
+  }
+}

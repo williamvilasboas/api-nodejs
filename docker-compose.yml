@@ -1,0 +1,36 @@
+version: "2"
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: "slam-dunk"
+      MYSQL_DATABASE: "ibills"
+      MYSQL_USER: "app"
+      MYSQL_PASSWORD: "slam-dunk"
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql-compose-network
+    volumes:
+      - ./mysql:/var/lib/mysql
+  app:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - db
+
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: slam-dunk
+      PMA_HOST: db
+
+    links:
+      - db:mysql
+    ports:
+      - 8088:80
+    networks:
+      - mysql-compose-network
+networks:
+  mysql-compose-network:
+    driver: bridge
